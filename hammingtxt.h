@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 char *int_to_bin(int L){
     char *bin = (char *) malloc(sizeof(char)*33);
@@ -31,17 +32,26 @@ char **txt_to_bin(char *txt_input){
         return bin_input;    
     }
 
-
-
-
-//free()
-/*
-    char *bin_to_txt(char *bin){
-
-        return txt_output;
+char *char_to_bin(char ch){
+        char *bin = (char *) malloc(9 * sizeof(char));
+        strcpy(bin,int_to_bin(toascii(ch)));
+        return bin;    
     }
 
+    int bin_to_int(char *bin) {
+    int n = 0;
+    for (int i = 0; i < strlen(bin); i++) {
+        n = n * 2 + (bin[i] - '0');
+    }
+    return n;
+}
 
+char bin_to_char(char *bin){
+        char ch = (char) bin_to_int(bin);
+        return ch;
+}
+
+/*
     int hamm(){ //returns output string and errors positions as accurately as possible
         return 0;
     }
