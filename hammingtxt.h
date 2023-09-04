@@ -3,6 +3,18 @@
 #include <stdlib.h>
 #include <math.h>
 
+char *zero_fill(char *bin){
+
+    int binL = strlen(bin);
+    if (binL >= 8) return bin;
+    strrev(bin);
+    for(int i = 8 - binL; i<9; i++){
+        strcat(bin, "0");       
+    }
+    bin[9]='\0';
+    return strrev(bin);
+}
+
 char *int_to_bin(int L){
     char *bin = (char *) malloc(sizeof(char)*33);
     int i = 0;
@@ -15,27 +27,27 @@ char *int_to_bin(int L){
     return bin;
 }
 
-char **txt_to_bin(char *txt_input){
+void txt_to_bin(char *txt_input, char **bin_input){
         int txtL = strlen(txt_input);
         int *ascii_input = (int *) malloc(txtL * sizeof(int));
-        char **bin_input= (char **) malloc(txtL * sizeof(char));
+        
 
         for(int i=0; i<txtL; i++){
             ascii_input[i] = (int)txt_input[i];
             bin_input[i] = malloc(9 * sizeof(char));
             for(int j=0; j<10; j++){ 
-                bin_input[i]= int_to_bin(ascii_input[i]);
+                bin_input[i]= zero_fill(int_to_bin(ascii_input[i]));
             }
-            printf("%s", bin_input[i]);
+            printf("%s ", bin_input[i]);
         }
-        
-        return bin_input;    
+        printf("\n");   
     }
 
 char *char_to_bin(char ch){
         char *bin = (char *) malloc(9 * sizeof(char));
         strcpy(bin,int_to_bin(toascii(ch)));
-        return bin;    
+        bin[9]='\0';
+        return zero_fill(bin);    
     }
 
 int bin_to_int(char *bin) {
@@ -52,16 +64,19 @@ char bin_to_char(char *bin){
 }
 
 void *parity_bits(char *input) { //calculates parity bitsfor 1 char, outputs a string of those parity bits
-    char *parity = (char *)malloc(4 * sizeof(char));
+    char *parity = (char *)malloc(5 * sizeof(char));
 
     //parity bits
-    parity[0] = (input[0] ^ input[1] ^ input[3]) + '0';
-    parity[1] = (input[0] ^ input[2] ^ input[3]) + '0';
-    parity[2] = (input[1] ^ input[2] ^ input[3]) + '0';
+    parity[0] = ((input[0] - '0') ^ (input[1] - '0') ^ (input[3] - '0')) + '0';
+    parity[1] = ((input[0] - '0') ^ (input[2] - '0') ^ (input[3] - '0')) + '0';
+    parity[2] = ((input[1] - '0') ^ (input[2] - '0') ^ (input[3] - '0')) + '0';
 
-    //even parity of the previous 7 bits
-    int even_parity = (input[0] - '0') + (input[1] - '0') + (input[2] - '0') + (input[3] - '0');
-    parity[4] = (even_parity % 2) + '0';
+    //even parity
+    int even_parity = (input[0] - '0') + (input[1] - '0') + (input[2] - '0') + (input[3] - '0') +
+                      (input[4] - '0') + (input[5] - '0') + (input[6] - '0');
+
+    parity[3] = (even_parity % 2) + '0';
+    parity[4] = '\0';
 
     return parity;
 }
