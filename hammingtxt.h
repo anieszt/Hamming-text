@@ -30,17 +30,15 @@ char *int_to_bin(int L){
 void txt_to_bin(char *txt_input, char **bin_input){
         int txtL = strlen(txt_input);
         int *ascii_input = (int *) malloc(txtL * sizeof(int));
-        
 
+        
         for(int i=0; i<txtL; i++){
             ascii_input[i] = (int)txt_input[i];
             bin_input[i] = malloc(9 * sizeof(char));
             for(int j=0; j<10; j++){ 
                 bin_input[i]= zero_fill(int_to_bin(ascii_input[i]));
             }
-            printf("%s ", bin_input[i]);
-        }
-        printf("\n");   
+        }   
     }
 
 char *char_to_bin(char ch){
@@ -63,17 +61,17 @@ char bin_to_char(char *bin){
         return ch;
 }
 
-void *parity_bits(char *input) { //calculates parity bitsfor 1 char, outputs a string of those parity bits
+void *parity_bits(char *bin) { //calculates parity bitsfor 1 char, outputs a string of those parity bits
     char *parity = (char *)malloc(5 * sizeof(char));
 
     //parity bits
-    parity[0] = ((input[0] - '0') ^ (input[1] - '0') ^ (input[3] - '0')) + '0';
-    parity[1] = ((input[0] - '0') ^ (input[2] - '0') ^ (input[3] - '0')) + '0';
-    parity[2] = ((input[1] - '0') ^ (input[2] - '0') ^ (input[3] - '0')) + '0';
+    parity[0] = ((bin[0] - '0') ^ (bin[1] - '0') ^ (bin[3] - '0')) + '0';
+    parity[1] = ((bin[0] - '0') ^ (bin[2] - '0') ^ (bin[3] - '0')) + '0';
+    parity[2] = ((bin[1] - '0') ^ (bin[2] - '0') ^ (bin[3] - '0')) + '0';
 
     //even parity
-    int even_parity = (input[0] - '0') + (input[1] - '0') + (input[2] - '0') + (input[3] - '0') +
-                      (input[4] - '0') + (input[5] - '0') + (input[6] - '0');
+    int even_parity = (bin[0] - '0') + (bin[1] - '0') + (bin[2] - '0') + (bin[3] - '0') +
+                      (bin[4] - '0') + (bin[5] - '0') + (bin[6] - '0');
 
     parity[3] = (even_parity % 2) + '0';
     parity[4] = '\0';
