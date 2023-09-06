@@ -45,7 +45,7 @@ char *char_to_bin(char ch){
         char *bin = (char *) malloc(9 * sizeof(char));
         strcpy(bin,int_to_bin(toascii(ch)));
         bin[9]='\0';
-        return zero_fill(bin);    
+        return bin;    
     }
 
 int bin_to_int(char *bin) {
@@ -79,20 +79,25 @@ void *parity_bits(char *bin) { //calculates parity bitsfor 1 char, outputs a str
     return parity;
 }
 
-char *hamm_enc_char(char *bin){ //inputs binary of 1 char and outputs hamming code of 1 char
+char *hamm_enc(char *bin){ //inputs binary of 1 char and outputs hamming code of 1 char
 
+    char *code = (char *)malloc(14 * sizeof(char));
+    strcpy(code, strcat(parity_bits(bin), bin));
+
+    code[13] = '\0';
     
-    //int totL = strlen()
-    //char *code = (char *)malloc(totL * sizeof(char)); 
-     return NULL;
+    return code;
 }
 
-/*
-    int hamm_dec(){ //returns output string decoded
-    
-    }
 
-    void check_txt(char *txt_input /*hamm){ //loops output possibilities text
+    char *hamm_dec(char *hamm){ //returns output string decoded
+
+    
+    
+    return NULL;
+    }
+/*
+    void check_txt(char *txt_input *hamm){ //loops output possibilities text
     }
 
     void check_bin(char *bin /*hamm){ //loops output possibilities binary

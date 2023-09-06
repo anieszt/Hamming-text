@@ -3,6 +3,8 @@
 
 
 int main() {
+
+    //-------------------------------------------arrays setting and errors-----------------------------------------
     char a[500];
 
     if (fgets(a, sizeof(a), stdin) == NULL) {
@@ -10,7 +12,7 @@ int main() {
         return 1;
     }
 
-    size_t len = strlen(a);
+    size_t len = strlen(a); //remove line returns
     if (len > 0 && a[len - 1] == '\n') {
         a[len - 1] = '\0';
         len--;
@@ -19,7 +21,7 @@ int main() {
     char **b = (char **)malloc(len * sizeof(char *));
 
     if (b == NULL) {
-        perror("txttobin individuals mem error");
+        perror("txttobin elements mem error");
         return 1;
     }
 
@@ -46,11 +48,13 @@ int main() {
         return 1;
     }
 
+    
+//-------------------------------------------------test-----------------------------------------------------
     txt_to_bin(a, b);
 
     for (size_t i = 0; i < len; i++) {
         strcpy(parity, parity_bits(b[i]));
-        printf("%c %s %s\n", bin_to_char(b[i]), b[i], parity);
+        printf("%c %s %s   %s\n", bin_to_char(b[i]), b[i], parity, hamm_enc(b[i]));
     }
 
     for (size_t i = 0; i < len; i++) {
