@@ -65,13 +65,13 @@ void *parity_bits(char *bin) { //calculates parity bitsfor 1 char, outputs a str
     char *parity = (char *)malloc(5 * sizeof(char));
 
     //parity bits
-    parity[0] = ((bin[0] - '0') ^ (bin[1] - '0') ^ (bin[3] - '0')) + '0';
-    parity[1] = ((bin[0] - '0') ^ (bin[2] - '0') ^ (bin[3] - '0')) + '0';
-    parity[2] = ((bin[1] - '0') ^ (bin[2] - '0') ^ (bin[3] - '0')) + '0';
+    parity[0]= ((bin[0]-'0') ^ (bin[1]-'0') ^ (bin[3]-'0')) + '0';
+    parity[1]= ((bin[0]-'0') ^ (bin[2]-'0') ^ (bin[3]-'0')) + '0';
+    parity[2]= ((bin[1]-'0') ^ (bin[2]-'0') ^ (bin[3]-'0')) + '0';
 
     //even parity
-    int even_parity = (bin[0] - '0') + (bin[1] - '0') + (bin[2] - '0') + (bin[3] - '0') +
-                      (bin[4] - '0') + (bin[5] - '0') + (bin[6] - '0');
+    int even_parity =(bin[0]-'0')+(bin[1]-'0')+(bin[2]-'0')+(bin[3]-'0')+
+                     (bin[4]-'0')+(bin[5]-'0')+(bin[6]-'0');
 
     parity[3] = (even_parity % 2) + '0';
     parity[4] = '\0';
@@ -81,21 +81,36 @@ void *parity_bits(char *bin) { //calculates parity bitsfor 1 char, outputs a str
 
 char *hamm_enc(char *bin){ //inputs binary of 1 char and outputs hamming code of 1 char
 
-    char *code = (char *)malloc(14 * sizeof(char));
+    char *code = (char *)malloc(13 * sizeof(char));
     strcpy(code, strcat(parity_bits(bin), bin));
 
-    code[13] = '\0';
+    code[12] = '\0';
     
     return code;
 }
 
 
-    char *hamm_dec(char *hamm){ //returns output string decoded
+char hamm_dec(char *bit_hamm){ //returns output string decoded
+
+    if(strlen(bit_hamm) != 12){
+    printf("Error : input must be 12 bits");
+    return '\0';
+    }
+
+    char parity[4];
+    char bit[8];
+
+    for(size_t i = 0; i < 4; i++){
+        parity[i] = bit_hamm[i];
+    }
+    for(size_t i = 4; i < 12; i++){
+        bit[i-4] = bit_hamm[i];
+    }
 
     
     
-    return NULL;
-    }
+    return ;
+}
 /*
     void check_txt(char *txt_input *hamm){ //loops output possibilities text
     }
