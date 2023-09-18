@@ -54,7 +54,7 @@ int main() {
 
     for (size_t i = 0; i < len; i++) {
         strcpy(parity, parity_bits(b[i]));
-        printf("%c %s %s   %s\n", bin_to_char(b[i]), b[i], parity, hamm_enc(b[i]));
+        printf("%c %s %s   %s    %s\n", bin_to_char(b[i]), b[i], parity, hamm_enc(b[i]), hamm_dec(hamm_enc(b[i])));
     }
 
     for (size_t i = 0; i < len; i++) {

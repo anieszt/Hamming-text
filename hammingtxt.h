@@ -90,26 +90,34 @@ char *hamm_enc(char *bin){ //inputs binary of 1 char and outputs hamming code of
 }
 
 
-char hamm_dec(char *bit_hamm){ //returns output string decoded
+char *hamm_dec(char *bit_hamm){ //returns output string decoded
 
     if(strlen(bit_hamm) != 12){
     printf("Error : input must be 12 bits");
     return '\0';
     }
 
-    char parity[4];
+    char input_parity[4];
     char bit[8];
 
     for(size_t i = 0; i < 4; i++){
-        parity[i] = bit_hamm[i];
+        input_parity[i] = bit_hamm[i];
     }
     for(size_t i = 4; i < 12; i++){
         bit[i-4] = bit_hamm[i];
+        
     }
 
-    
-    
-    return ;
+    char calculated_parity[4];
+    strcpy(calculated_parity,parity_bits(bit));
+
+    char error = '0';
+    for (int i = 0; i < 4; i++) {
+        if (parity[i] != calculated_parity[i]) {
+            error |= (1 << i);
+        }
+    }
+    return calculated_parity;
 }
 /*
     void check_txt(char *txt_input *hamm){ //loops output possibilities text
