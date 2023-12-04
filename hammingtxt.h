@@ -137,3 +137,12 @@ char hamm_dec(char *bit_hamm){ //returns output string decoded
     char ch = bin_to_char(bit);
     return ch;
 }
+
+
+
+
+
+
+
+
+
